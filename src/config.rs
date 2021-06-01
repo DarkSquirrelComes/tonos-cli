@@ -159,7 +159,7 @@ pub fn clear_config(
         || no_answer || use_delimiters || local_run) == false {
         conf = Config::new();
     }
-    let conf_str = serde_json::to_string(&conf)
+    let conf_str = serde_json::to_string_pretty(&conf)
         .map_err(|_| "failed to serialize config object".to_string())?;
 
     std::fs::write(path, conf_str).map_err(|e| format!("failed to write config file: {}", e))?;
@@ -235,7 +235,7 @@ pub fn set_config(
             .map_err(|e| format!(r#"failed to parse "local_run": {}"#, e))?;
     }
 
-    let conf_str = serde_json::to_string(&conf)
+    let conf_str = serde_json::to_string_pretty(&conf)
         .map_err(|_| "failed to serialize config object".to_string())?;
     std::fs::write(path, conf_str).map_err(|e| format!("failed to write config file: {}", e))?;
     if !conf.is_json {
